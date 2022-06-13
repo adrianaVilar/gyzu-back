@@ -1,3 +1,3 @@
-# gyzu-back
+# Gyzu-back
 
-Repositório criado para postar as Demandas da Startup Gyzu Nacional
+Repositório criado para postar as demandas da Startup Gyzu Nacional
