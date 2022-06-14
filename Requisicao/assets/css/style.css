@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
 :root {
-    --primary-color: red;
+    --primary-color: rgb(202, 0, 0);
+    --primary-color-light: rgba(255, 0, 0, 0.432);
     --primary-color-darker: rgb(123, 0, 0);
 }
 
@@ -13,16 +14,42 @@
 body {
     margin: 0;
     padding: 0;
-    background: var(--primary-color);
+    background: rgba(255, 255, 255, 0.596);
     font-family: 'Open sans', sans-serif;
     font-size: 1.3em;
     line-height: 1.5em;
 }
 
 .container {
-    max-width: 640px;
+    max-width: 1080px;
     margin: 50px auto;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.644);
     padding: 20px;
     border-radius: 10px;
+}
+
+.post {
+    margin: 10px 10px;
+    line-height: 1.2em;
+    background: var(--primary-color-light);
+    padding: 15px;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.button {
+    font-size: 2em;
+    padding: 10px;
+    cursor: pointer;
+    background: var(--primary-color-light);
+}
+
+.button:hover {
+    background: var(--primary-color-darker);
+}
+
+.resultado {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+    gap: 20px;
 }
