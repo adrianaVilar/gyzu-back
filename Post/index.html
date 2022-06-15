@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Gyzu</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+
+  <body>
+    <section class="container">
+      <h1>Filtrando posts:</h1>
+      <div class="resultado"></div>
+
+      <section class="formulario">
+        <h1>Criar um novo post:</h1>
+        <form action="/" id="formulario" method="POST">
+          <p>
+            <label for="userId">Número do usuário</label>
+            <input type="number" id="userId" name="userId" />
+          </p>
+          <p>
+            <label for="title">Título</label>
+            <input type="text" id="title" name="title" />
+          </p>
+          <p>
+            <label for="body-post">Post</label>
+            <input type="text" id="body-post" name="body-post" />
+          </p>
+          <button type="submit" class="button">Enviar</button>
+        </form>
+      </section>
+    </section>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>
