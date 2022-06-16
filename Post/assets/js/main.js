@@ -1,4 +1,7 @@
 let posts = [];
+const idParaDeletar = 1;
+const idParaSelecionar = 7;
+const userIdParaFiltrar = 9;
 
 function template(post) {
   return `
@@ -22,15 +25,12 @@ function buscaPost(callback) {
 
 function carregaPostsNaPagina(posts) {
   let jsonFiltrado = posts.filter(function (obj) {
-    return filtroPorUsuarioOuIdMaiorQueCem(obj, 1);
+    return filtroPorUsuarioOuIdMaiorQueCem(obj, userIdParaFiltrar);
   });
 
   const resultadoFiltro = document.querySelector(".resultadoFiltro");
   resultadoFiltro.innerHTML = `${jsonFiltrado.map(template).join("")}`;
 }
-
-let filtroPorUsuarioOuIdMaiorQueCem = (obj, userId) =>
-  obj.userId === userId || obj.id > 100;
 
 function criaPost(post, callback) {
   fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -53,7 +53,17 @@ function criaPost(post, callback) {
     .then(() => callback && callback());
 }
 
-function deletePost(indiceParaDeletar) {
+function selecionaUmPost(posts, id) {
+  let postSelecionado = posts.filter(function (obj) {
+    return filtroPorPost(obj, id);
+  });
+
+  const resultadoSelecao = document.querySelector(".resultadoSelecao");
+  console.log("post selecionado: ", id);
+  resultadoSelecao.innerHTML = `${postSelecionado.map(template)}`;
+}
+
+function deletePost(indiceParaDeletar, callback) {
   fetch(`https://jsonplaceholder.typicode.com/posts/${indiceParaDeletar}`, {
     method: "DELETE",
   })
@@ -65,8 +75,14 @@ function deletePost(indiceParaDeletar) {
       if (idDoArray > -1) posts.splice(idDoArray, 1);
     })
     .then(() => carregaPostsNaPagina(posts))
+    .then(() => callback && callback())
     .then(() => console.log(posts));
 }
+
+let filtroPorUsuarioOuIdMaiorQueCem = (obj, userId) =>
+  obj.userId === userId || obj.id > 100;
+
+let filtroPorPost = (obj, id) => obj.id === id;
 
 buscaPost(
   () =>
@@ -77,7 +93,10 @@ buscaPost(
         body: "Segundo post criado para a resolução do exercício de html Squad RedBull",
         userId: 11,
       },
-      () => deletePost(102)
+      () =>
+        deletePost(idParaDeletar, () =>
+          selecionaUmPost(posts, idParaSelecionar)
+        )
     ),
 
   criaPost({
