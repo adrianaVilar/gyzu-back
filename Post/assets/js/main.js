@@ -1,8 +1,9 @@
 let posts = [];
-const idParaDeletar = 1;
+const idParaDeletar = 102;
 const idParaSelecionar = 7;
-const userIdParaFiltrar = 9;
+const userIdParaFiltrar = 1;
 
+//Formatar a resposta gerada
 function template(post) {
   return `
       <article class="post">
@@ -12,6 +13,8 @@ function template(post) {
       </article>`;
 }
 
+/*Pesquisa no endpoint todos os posts existentes
+Função callback para ser a primeira função a ser executada*/
 function buscaPost(callback) {
   fetch("https://jsonplaceholder.typicode.com/posts/")
     .then((response) => response.json())
@@ -23,6 +26,7 @@ function buscaPost(callback) {
     .then(() => callback && callback());
 }
 
+//Filtra e carrega na página os posts filtrados formatados
 function carregaPostsNaPagina(posts) {
   let jsonFiltrado = posts.filter(function (obj) {
     return filtroPorUsuarioOuIdMaiorQueCem(obj, userIdParaFiltrar);
@@ -32,6 +36,10 @@ function carregaPostsNaPagina(posts) {
   resultadoFiltro.innerHTML = `${jsonFiltrado.map(template).join("")}`;
 }
 
+/*Usa o método POST no endpoint para criar novos posts
+Atribui à variável "posts" o array existente mais o array criado com os novos objetos
+Renderiza na página o novo array
+Função callback para que só seja criado o post antes de deletar*/
 function criaPost(post, callback) {
   fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
@@ -53,16 +61,21 @@ function criaPost(post, callback) {
     .then(() => callback && callback());
 }
 
-function selecionaUmPost(posts, id) {
+/*Filtra o array "posts" pelo índice do post que quero exibir na tela separadamente
+ Carrega na página o post selecionado formatado*/
+function selecionaUmPost(posts) {
   let postSelecionado = posts.filter(function (obj) {
-    return filtroPorPost(obj, id);
+    return filtroPorPost(obj, idParaSelecionar);
   });
 
   const resultadoSelecao = document.querySelector(".resultadoSelecao");
-  console.log("post selecionado: ", id);
+  console.log("post selecionado: ", idParaSelecionar);
   resultadoSelecao.innerHTML = `${postSelecionado.map(template)}`;
 }
 
+/*Usa o método DELETE no endpoint para deletar o índice selecionado
+Renderiza o novo array "posts"
+Função callback para que ocorra antes de selecionar o post para imprimir separado */
 function deletePost(indiceParaDeletar, callback) {
   fetch(`https://jsonplaceholder.typicode.com/posts/${indiceParaDeletar}`, {
     method: "DELETE",
@@ -79,11 +92,14 @@ function deletePost(indiceParaDeletar, callback) {
     .then(() => console.log(posts));
 }
 
+//Filtra por userId e por posts novos com id maior que 100
 let filtroPorUsuarioOuIdMaiorQueCem = (obj, userId) =>
   obj.userId === userId || obj.id > 100;
 
+//Filtra o post para imprimir separado pelo id
 let filtroPorPost = (obj, id) => obj.id === id;
 
+//Chamada da função para buscar post, depois criar, depois deletar e por último selecionar
 buscaPost(
   () =>
     criaPost(
@@ -93,10 +109,7 @@ buscaPost(
         body: "Segundo post criado para a resolução do exercício de html Squad RedBull",
         userId: 11,
       },
-      () =>
-        deletePost(idParaDeletar, () =>
-          selecionaUmPost(posts, idParaSelecionar)
-        )
+      () => deletePost(idParaDeletar, () => selecionaUmPost(posts))
     ),
 
   criaPost({
