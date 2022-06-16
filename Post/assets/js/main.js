@@ -9,14 +9,15 @@ function template(post) {
       </article>`;
 }
 
-function buscaPost() {
+function buscaPost(callback) {
   fetch("https://jsonplaceholder.typicode.com/posts/")
     .then((response) => response.json())
     .then((json) => {
       posts.push(...json);
       console.log("Busca: ", posts);
       return carregaPostsNaPagina(posts);
-    });
+    })
+    .then(() => callback && callback());
 }
 
 function carregaPostsNaPagina(posts) {
@@ -31,7 +32,7 @@ function carregaPostsNaPagina(posts) {
 let filtroPorUsuarioOuIdMaiorQueCem = (obj, userId) =>
   obj.userId === userId || obj.id > 100;
 
-function criaPost(post) {
+function criaPost(post, callback) {
   fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
     body: JSON.stringify(post),
@@ -40,9 +41,16 @@ function criaPost(post) {
     },
   })
     .then((response) => response.json())
+    .then((jsonCriado) => {
+      jsonCriado.id = posts.length + 1;
+      return jsonCriado;
+    })
     .then((jsonCriado) => posts.push(jsonCriado))
-    .then((jsonCriado) => console.log("Cria post indice: ", jsonCriado))
-    .then(() => carregaPostsNaPagina(posts));
+    .then((jsonCriado) =>
+      console.log("Cria post id: ", post.id, " indice: ", jsonCriado)
+    )
+    .then(() => carregaPostsNaPagina(posts))
+    .then(() => callback && callback());
 }
 
 function deletePost(indiceParaDeletar) {
@@ -53,26 +61,29 @@ function deletePost(indiceParaDeletar) {
     .then((json) => console.log("Deletado: ", json))
     .then(() => {
       let idDoPosts = posts.map((obj) => obj.id);
-      indiceParaDeletar = idDoPosts.indexOf(indiceParaDeletar);
-      if (indiceParaDeletar > -1) posts.splice(indiceParaDeletar, 1);
+      let idDoArray = idDoPosts.indexOf(indiceParaDeletar);
+      if (idDoArray > -1) posts.splice(idDoArray, 1);
     })
+    .then(() => carregaPostsNaPagina(posts))
     .then(() => console.log(posts));
 }
 
-buscaPost();
+buscaPost(
+  () =>
+    criaPost(
+      {
+        id: 101,
+        title: "Post 2",
+        body: "Segundo post criado para a resolução do exercício de html Squad RedBull",
+        userId: 11,
+      },
+      () => deletePost(102)
+    ),
 
-criaPost({
-  id: 101,
-  title: "Post 2",
-  body: "Segundo post criado para a resolução do exercício de html Squad RedBull",
-  userId: 11,
-});
-
-criaPost({
-  id: 102,
-  title: "Post 1",
-  body: "Post criado para a resolução do exercício de html Squad RedBull",
-  userId: 1,
-});
-
-deletePost(101);
+  criaPost({
+    id: 102,
+    title: "Post 1",
+    body: "Post criado para a resolução do exercício de html Squad RedBull",
+    userId: 1,
+  })
+);
