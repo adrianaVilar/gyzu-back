@@ -21,13 +21,17 @@
 // Precisando de uma ajudinha para começar, copie o código abaixo:
 
 function comparaStrings(primeiraString, segundaString) {
-  primeiraString = removeLetrasDuplicadas(primeiraString.toLowerCase());
-  segundaString = removeLetrasDuplicadas(segundaString.toLowerCase());
+  if (primeiraString != null && segundaString != null) {
+    primeiraString = removeLetrasDuplicadas(primeiraString.toLowerCase());
+    segundaString = removeLetrasDuplicadas(segundaString.toLowerCase());
 
-  return (
-    primeiraString === segundaString ||
-    primeiraString === inverteString(segundaString)
-  );
+    return (
+      primeiraString === segundaString ||
+      primeiraString === inverteString(segundaString)
+    );
+  } else {
+    return null;
+  }
 }
 
 function removeLetrasDuplicadas(string) {
@@ -49,3 +53,5 @@ console.log(
   comparaStrings("CaRoLiNa", "cArOlInA")
 );
 console.log("Hum e H um retornará False:", comparaStrings("Hum", "H um"));
+console.log("null e H um retornará null:", comparaStrings(null, "H um"));
+console.log("Hum e null retornará null:", comparaStrings("H um", null));
