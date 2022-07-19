@@ -25,19 +25,6 @@ class UserController {
     }
   }
 
-  // Show
-  async show(req, res) {
-    try {
-      const user = await User.findByPk(req.params.id);
-
-      const { id, nome, email } = user;
-      return res.json({ id, nome, email });
-    } catch (e) {
-      // retorna nulo pq se houver erro, foi o código que quebrou e ñ a pessoa que digitou errado
-      return res.json(null);
-    }
-  }
-
   // Update
   async update(req, res) {
     try {
