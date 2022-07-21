@@ -3,12 +3,14 @@ import { resolve } from "path";
 
 dotenv.config();
 
-import "./src/database";
+import "./database";
 
 import express from "express";
 
-import userRoutes from "./src/routes/user";
-import tokenRoutes from "./src/routes/token";
+import userRoutes from "./routes/user";
+import tokenRoutes from "./routes/token";
+import eventRoutes from "./routes/event";
+import imageRoutes from "./routes/image";
 
 class App {
   constructor() {
@@ -29,6 +31,8 @@ class App {
   routes() {
     this.app.use("/users/", userRoutes);
     this.app.use("/tokens/", tokenRoutes);
+    this.app.use("/events/", eventRoutes);
+    this.app.use("/images/", imageRoutes);
   }
 }
 export default new App().app;

@@ -1,8 +1,10 @@
 import Sequelize from "sequelize";
 import databaseConfig from "../config/database";
 import User from "../models/User";
+import Event from "../models/Event";
+import Image from "../models/Image";
 
-const models = [User];
+const models = [User, Event, Image];
 
 const connection = new Sequelize(databaseConfig);
 
