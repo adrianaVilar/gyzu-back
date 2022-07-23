@@ -39,7 +39,7 @@ class EventController {
       const event = await _Event2.default.findByPk(id, {
         attributes: [
           "id",
-          "nome_evento",
+          "nome_evento".toUpperCase(),
           "categoria",
           "data_hora",
           "organizador",

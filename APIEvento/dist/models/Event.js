@@ -7,10 +7,12 @@
         nome_evento: {
           type: _sequelize2.default.STRING,
           defaultValue: " ",
-
           unique: {
             args: true,
             msg: "Por favor, digite um nome único para o evento",
+          },
+          set(value) {
+            this.setDataValue("nome_evento", value.toUpperCase());
           },
           validate: {
             len: {
@@ -32,6 +34,16 @@
         data_hora: {
           type: _sequelize2.default.DATE,
           allowNull: false,
+          validate: {
+            isDate: {
+              args: true,
+              msg: "Por favor, insira uma data válida",
+            },
+            isAfter: {
+              args: new Date().toDateString(),
+              msg: "Insira uma data no futuro",
+            },
+          },
         },
         organizador: {
           type: _sequelize2.default.STRING,
