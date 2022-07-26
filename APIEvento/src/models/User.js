@@ -5,7 +5,7 @@ export default class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        nome: {
+        name: {
           type: Sequelize.STRING,
           defaultValue: "",
           validate: {

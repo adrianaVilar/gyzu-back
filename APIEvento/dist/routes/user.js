@@ -5,7 +5,7 @@ var _loginRequired = require('../middlewares/loginRequired'); var _loginRequired
 
 const router = new (0, _express.Router)();
 
-router.get("/", _UserController2.default.index);
+router.get("/", _loginRequired2.default, _UserController2.default.index);
 router.post("/", _UserController2.default.store); // Esse não precisa de login, pq o usuario precisa acessar para criar conta
 router.put("/", _loginRequired2.default, _UserController2.default.update); // Precisa de login
 router.delete("/", _loginRequired2.default, _UserController2.default.delete); // Precisa de login

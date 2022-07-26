@@ -5,7 +5,7 @@ import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
-router.get("/", userController.index);
+router.get("/", loginRequired, userController.index);
 router.post("/", userController.store); // Esse não precisa de login, pq o usuario precisa acessar para criar conta
 router.put("/", loginRequired, userController.update); // Precisa de login
 router.delete("/", loginRequired, userController.delete); // Precisa de login

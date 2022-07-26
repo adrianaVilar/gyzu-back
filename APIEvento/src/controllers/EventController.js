@@ -5,13 +5,7 @@ class EventController {
   // mostrar todos
   async index(req, res) {
     const events = await Event.findAll({
-      attributes: [
-        "id",
-        "nome_evento",
-        "categoria",
-        "data_hora",
-        "organizador",
-      ],
+      attributes: ["id", "event_name", "category", "date_time", "organizer"],
       // Ordem de apresentação decrescente:
       order: [
         ["id", "DESC"],
@@ -39,10 +33,10 @@ class EventController {
       const event = await Event.findByPk(id, {
         attributes: [
           "id",
-          "nome_evento".toUpperCase(),
-          "categoria",
-          "data_hora",
-          "organizador",
+          "event_name".toUpperCase(),
+          "category",
+          "date_time",
+          "organizer",
         ],
         // Ordem de apresentação decrescente:
         order: [

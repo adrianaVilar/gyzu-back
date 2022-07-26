@@ -7,19 +7,19 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      nome_evento: {
+      event_name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      categoria: {
+      category: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      data_hora: {
+      date_time: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      organizador: {
+      organizer: {
         type: Sequelize.STRING,
         allowNull: false,
       },

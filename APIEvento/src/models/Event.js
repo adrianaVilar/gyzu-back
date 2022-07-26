@@ -4,7 +4,7 @@ export default class Event extends Model {
   static init(sequelize) {
     super.init(
       {
-        nome_evento: {
+        event_name: {
           type: Sequelize.STRING,
           defaultValue: " ",
           unique: {
@@ -12,7 +12,7 @@ export default class Event extends Model {
             msg: "Por favor, digite um nome único para o evento",
           },
           set(value) {
-            this.setDataValue("nome_evento", value.toUpperCase());
+            this.setDataValue("event_name", value.toUpperCase());
           },
           validate: {
             len: {
@@ -21,7 +21,7 @@ export default class Event extends Model {
             },
           },
         },
-        categoria: {
+        category: {
           type: Sequelize.STRING,
           defaultValue: "",
           validate: {
@@ -31,7 +31,7 @@ export default class Event extends Model {
             },
           },
         },
-        data_hora: {
+        date_time: {
           type: Sequelize.DATE,
           allowNull: false,
           validate: {
@@ -45,7 +45,7 @@ export default class Event extends Model {
             },
           },
         },
-        organizador: {
+        organizer: {
           type: Sequelize.STRING,
           defaultValue: "",
           validate: {

@@ -5,8 +5,8 @@ class UserController {
   async store(req, res) {
     try {
       const novoUser = await _User2.default.create(req.body);
-      const { id, nome, email } = novoUser;
-      return res.json({ id, nome, email });
+      const { id, name, email } = novoUser;
+      return res.json({ id, name, email });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
@@ -17,7 +17,7 @@ class UserController {
   // Index
   async index(req, res) {
     try {
-      const users = await _User2.default.findAll({ attributes: ["id", "nome", "email"] });
+      const users = await _User2.default.findAll({ attributes: ["id", "name", "email"] });
       return res.json(users);
     } catch (e) {
       // retorna nulo pq se houver erro, foi o código que quebrou e ñ a pessoa que digitou errado
@@ -37,8 +37,8 @@ class UserController {
       }
 
       const novosDados = await user.update(req.body);
-      const { id, nome, email } = novosDados;
-      return res.json({ id, nome, email });
+      const { id, name, email } = novosDados;
+      return res.json({ id, name, email });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),

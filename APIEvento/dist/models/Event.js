@@ -4,7 +4,7 @@
   static init(sequelize) {
     super.init(
       {
-        nome_evento: {
+        event_name: {
           type: _sequelize2.default.STRING,
           defaultValue: " ",
           unique: {
@@ -12,7 +12,7 @@
             msg: "Por favor, digite um nome único para o evento",
           },
           set(value) {
-            this.setDataValue("nome_evento", value.toUpperCase());
+            this.setDataValue("event_name", value.toUpperCase());
           },
           validate: {
             len: {
@@ -21,7 +21,7 @@
             },
           },
         },
-        categoria: {
+        category: {
           type: _sequelize2.default.STRING,
           defaultValue: "",
           validate: {
@@ -31,7 +31,7 @@
             },
           },
         },
-        data_hora: {
+        date_time: {
           type: _sequelize2.default.DATE,
           allowNull: false,
           validate: {
@@ -45,7 +45,7 @@
             },
           },
         },
-        organizador: {
+        organizer: {
           type: _sequelize2.default.STRING,
           defaultValue: "",
           validate: {
